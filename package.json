@@ -1,8 +1,8 @@
 {
-  "name": "typescript-action",
-  "version": "0.0.0",
+  "name": "action-post-md-slack",
+  "version": "0.0.1",
   "private": true,
-  "description": "TypeScript template action",
+  "description": "Post a markdown on slack as Blocks",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -10,7 +10,7 @@
     "format-check": "prettier --check '**/*.ts'",
     "lint": "eslint src/**/*.ts",
     "package": "ncc build --source-map --license licenses.txt",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
   },
   "repository": {
@@ -25,7 +25,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.10.0"
+    "@actions/core": "^1.10.0",
+    "@slack/web-api": "^6.8.1",
+    "@tryfabric/mack": "^1.2.1"
   },
   "devDependencies": {
     "@types/node": "^18.11.0",

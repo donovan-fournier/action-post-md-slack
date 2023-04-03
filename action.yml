@@ -1,11 +1,20 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Post MD as Slack Post'
+description: 'Convert a markdown file into'
+author: 'donovan.fournier'
 inputs:
-  milliseconds: # change this
+  input-md:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'Path to the markdown file'
+  slack-token:
+    required: true
+    description: 'Slack Token of an app with the access to your channel'
+  slack-channel:
+    required: true
+    description: 'ID/Name of the channel where you want to post your update'
+  default-text:
+    required: false
+    description: 'Default text to join to the blocks (For compat purpose)'
+    default: 'New Markdown'
 runs:
   using: 'node16'
   main: 'dist/index.js'
