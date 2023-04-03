@@ -10,6 +10,6 @@ inputs:
     description: 'Slack Token of an app with the access to your channel'
   slack-channel:
     required: true
-    description: 'ID/Name of the channel where you want to post your update'runs:
+    description: 'ID/Name of the channel where you want to post your update'
   using: 'node16'
   main: 'dist/index.js'
