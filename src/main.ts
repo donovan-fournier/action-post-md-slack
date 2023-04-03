@@ -17,7 +17,8 @@ async function run(): Promise<void> {
     })
     await client.chat.postMessage({
       channel: slackChannel,
-      blocks: blocks
+      blocks: blocks,
+      text: "New release"
     })
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
