@@ -1,16 +1,25 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import {markdownToBlocks} from '@tryfabric/mack';
+import * as fs from 'fs';
+import {WebClient, LogLevel} from '@slack/web-api'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
+    const inputMd: string = core.getInput('input-md')
+    const slackToken: string = core.getInput('slack-token')
+    const slackChannel: string = core.getInput('slack-channel')
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    const md = fs.readFileSync(inputMd,'utf8');
+    const blocks = await markdownToBlocks(md)
 
-    core.setOutput('time', new Date().toTimeString())
+    const client = new WebClient(slackToken, {
+      logLevel: LogLevel.DEBUG
+    })
+    await client.chat.postMessage({
+      channel: slackChannel,
+      blocks: blocks
+    })
+  
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }

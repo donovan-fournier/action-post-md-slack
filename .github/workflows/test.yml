@@ -21,4 +21,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
         with:
-          milliseconds: 1000
+          input-md: README.md
+          slack-token: ${{ secrets.SLACK_APP_KEY }}
+          slack-channel: C051JENC1B6
