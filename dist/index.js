@@ -44,15 +44,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
-const mack_1 = __nccwpck_require__(805);
 const fs = __importStar(__nccwpck_require__(5747));
 const web_api_1 = __nccwpck_require__(431);
+const mack_1 = __nccwpck_require__(805);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const inputMd = core.getInput('input-md');
             const slackToken = core.getInput('slack-token');
             const slackChannel = core.getInput('slack-channel');
+            const defaultText = core.getInput('default-text');
             const md = fs.readFileSync(inputMd, 'utf8');
             const blocks = yield (0, mack_1.markdownToBlocks)(md);
             const client = new web_api_1.WebClient(slackToken, {
@@ -60,7 +61,8 @@ function run() {
             });
             yield client.chat.postMessage({
                 channel: slackChannel,
-                blocks: blocks
+                blocks,
+                text: defaultText
             });
         }
         catch (error) {

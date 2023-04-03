@@ -1,13 +1,14 @@
 import * as core from '@actions/core'
 import * as fs from 'fs'
+import {LogLevel, WebClient} from '@slack/web-api'
 import {markdownToBlocks} from '@tryfabric/mack'
-import {WebClient, LogLevel} from '@slack/web-api'
 
 async function run(): Promise<void> {
   try {
     const inputMd: string = core.getInput('input-md')
     const slackToken: string = core.getInput('slack-token')
     const slackChannel: string = core.getInput('slack-channel')
+    const defaultText: string = core.getInput('default-text')
 
     const md = fs.readFileSync(inputMd, 'utf8')
     const blocks = await markdownToBlocks(md)
@@ -17,8 +18,8 @@ async function run(): Promise<void> {
     })
     await client.chat.postMessage({
       channel: slackChannel,
-      blocks: blocks,
-      text: "New release"
+      blocks,
+      text: defaultText
     })
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
