@@ -23,4 +23,4 @@ jobs:
         with:
           input-md: README.md
           slack-token: ${{ secrets.SLACK_APP_KEY }}
-          slack-channel: C051JENC1B6
+          slack-channel: C0519J0LEEA
